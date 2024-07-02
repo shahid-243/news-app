@@ -1,5 +1,4 @@
-import { GET_NEWS_ERROR, GET_NEWS_START, GET_NEWS_SUCCESS } from "../constants/news.constant"
-import { GET_CATEGORY_ERROR, GET_CATEGORY_START, GET_CATEGORY_SUCCESS } from "../constants/news.constant"
+import { GET_NEWS_ERROR, GET_NEWS_START, GET_NEWS_SUCCESS, GET_CATEGORY_NEWS_ERROR, GET_CATEGORY_NEWS_START, GET_CATEGORY_NEWS_SUCCESS } from "../constants/news.constant"
 
 export const getNewsStart = () => ({
     type: GET_NEWS_START
@@ -15,16 +14,17 @@ export const getNewsError = (error) => ({
     payload: error 
 })
 
-export const getCategoryStart = () => ({
-    type: GET_CATEGORY_START
+export const getCategoryNewsStart = (query) => ({
+    type: GET_CATEGORY_NEWS_START,
+    payload: query
 })
 
-export const getCategorySuccess = (news) => ({
-    type: GET_CATEGORY_SUCCESS,
+export const getCategoryNewsSuccess = (news) => ({
+    type: GET_CATEGORY_NEWS_SUCCESS,
     payload: news
 })
 
-export const getCategoryError = (error) => ({
-    type: GET_CATEGORY_ERROR,
+export const getCategoryNewsError = (error) => ({
+    type: GET_CATEGORY_NEWS_ERROR,
     payload: error 
 })

@@ -11,7 +11,7 @@ function App() {
       {/* home  */}
        <Route path="/" element={<Home />} />
       {/* category  */}
-       <Route path="/category" element={<Category />} />
+       <Route path="/category/:slug" element={<Category />} />
      </Routes>
     </div>
     </>

@@ -1,144 +1,34 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom'
+import { getCategoryNewsStart } from '../redux/actions/news.action';
+import NewsItem from '../components/NewsItem';
 
 export default function Category() {
-  return (
-    <div className="row">
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-    <div className="col-sm-3">
-      <div className="card">
-        <img src="..." class="card-img-top" alt="..." />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
-        </div>
-      </div>
-    </div>
-  </div>
-  );
+    let {slug} = useParams();
+    const categoryNews = useSelector(state => state.categoryNews)
+
+    const dispatch = useDispatch()
+
+    const getCategoryNews = useCallback(() => {
+        dispatch(getCategoryNewsStart(slug))
+    }, [dispatch,slug])
+
+    useEffect(() => {
+       getCategoryNews()
+    }, [getCategoryNews])
+
+    return (
+        <div className='row'>
+            {
+                categoryNews.length > 0 ? categoryNews.map((n, i) => (
+                    <NewsItem n={n} key={i} />
+                )) : <div className="col-sm-12 mt-2">
+                    <div className="card">
+                        <h1>No News </h1>
+                    </div>
+                </div>
+            }
+        </div>
+    )
 }
